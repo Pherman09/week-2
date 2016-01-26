@@ -12,7 +12,10 @@
 
     ## Introduction
 
-    Write a program that uses console.log to print the numbers from 1 to 100. For multiples of three, print "Fizz" instead of the number. For multiples of five, print "Buzz" instead of the number. For numbers which are multiples of both three and five, print "FizzBuzz".
+    Write a program that uses console.log to print the numbers from 1 to 100.
+    For multiples of three, print "Fizz" instead of the number.
+    For multiples of five, print "Buzz" instead of the number.
+    For numbers which are multiples of both three and five, print "FizzBuzz".
 
     Believe it or not, this is a common programming challenge in job interviews.
 
@@ -23,7 +26,19 @@
     Start code
 
     ===================== */
-
+    var masterArray = []
+    for (var i=1; i<101; i++){
+      if ((i % 3 == 0) && (i % 5 == 0)){
+        masterArray.push("FizzBuzz");
+      } else if (i % 5 == 0) {
+        masterArray.push("Buzz");
+      } else if (i % 3 == 0) {
+        masterArray.push("Fizz");
+      } else {
+      masterArray.push(i);
+      }
+    };
+    console.log(masterArray);
 
 
     /* =====================

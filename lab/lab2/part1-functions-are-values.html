@@ -43,8 +43,9 @@
         }
       }
 
-      /* =====================
-
+      /* =====================element === 'string'
+ {
+ }
       Start code
 
       ===================== */
@@ -52,8 +53,28 @@
       // Store sum you compute in this variable:
       var yourSum = 0;
 
-      // Refactor the work above into a few different functions that are reusable to the extent that you can
-      for (var i = 0; i < theArray.length, i++) { /* Do stuff here */ }
+      //Refactor the work above into a few different functions that are reusable to the extent that you can
+      var strlengths = function (arrayV) {
+        if (typeof arrayV === 'string') {         // String case
+          return arrayV.length;
+        } else {
+          return arrayV;
+        }
+      }
+
+      var numElse = function (arrayV) {
+        if (typeof arrayV === 'number') {
+          return arrayV;
+        } else {
+          console.log("Not sure how to proceed with value:", arrayV);
+          return 0;
+        }
+      }
+
+      for (var i = 0; i < theArray.length; i++) {
+        var arrayValue = theArray[i];
+        yourSum = yourSum + numElse(strlengths(arrayValue));
+    }
 
       /* =====================
 
