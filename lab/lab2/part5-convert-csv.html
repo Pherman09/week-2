@@ -28,6 +28,10 @@
       For each row in the CSV, console.log an array with all columns separated into different fields.
 
       For example, given the row "I'm,a,little,teapot", you will print out ["I'm", "a", "little", "teapot"].
+      Header:
+
+      var healthCentersCSV = "LNG,LAT,OBJECTID,NAME,ORGANIZATION,ZIP,PHONE,WEBSITE,DENTAL_PHONE,FULL_ADDRESS
+      10 columns!
 
       ===================== */
 
@@ -36,9 +40,19 @@
       Start code
 
       ===================== */
+      var stringtoCSV = function(string1,emptyArray) {
+        var splitstring = string1.split(";"); //This method taken form W3Schools
+        for (var i = 0; i < splitstring.length; i++){
+          var CSVLine = splitstring[i];
+          var CSVLineRow = CSVLine.split(",");
+          emptyArray.push(CSVLineRow);
+        }
+      }
 
-      console.log(healthCentersCSV)
-
+      var HCCSV = [];
+      stringtoCSV(healthCentersCSV,HCCSV);
+      console.log(healthCentersCSV);
+      console.log(HCCSV);
       /* =====================
 
       End code
