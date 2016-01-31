@@ -42,6 +42,7 @@
 
        1. Log a series of arrays to the console that represents the health_centers dataset in CSV form.
        For example, [{'first': 1, 'second': 44}, {'first': 2, 'second': 12}] becomes [['first','second'],[1, 44],[2, 12]]
+       CHECK
 
        2. Put a marker on the map for each health center in the specified zip codes with a popup (a simple text dialog)
        that shows that location's name when its marker is clicked.
@@ -61,14 +62,68 @@
       Start code
 
       ===================== */
+      var jsonPropsArray = [];
+      var CsvRows = []
 
-      var jsonToCsv = function(json) {
-        console.log(json);
+      //first helper function converts  all json properties to one big Array
+      var jsonPropstoArray = function (json, emptyArray){
+        for (var i = 0; i < json.length; i++){
+          var currentObject = json[i];
+          var Objectkeys = Object.keys(currentObject); //Method from w3schools
+          for(var b = 0; b < Objectkeys.length; b++) {
+            var keyValue = Objectkeys[b].toString();
+            var value = currentObject[keyValue];
+            emptyArray.push(value);
+          }
+        }
+      }
 
-       };
+      jsonPropstoArray(healthCenters,jsonPropsArray);
+      console.log(jsonPropsArray);
+
+      //Second helper function turns the array of everything into subsections with a set length
+      var ArraytoArrayofArrays = function (ArrayY,number,emptyArray){
+        var index = number + 1;
+        for (var i =0; i < ArrayY.length; i += number){
+          var subArray = ArrayY.slice(i,i + number);
+          emptyArray.push(subArray);
+        }
+      }
+
+      ArraytoArrayofArrays(jsonPropsArray,10,CsvRows);
+
+      //Third function removes unwanted rows
+      var RemovebyZip = function (ArrayS, number1, number2, number3){
+        for (var i = 0; i < ArrayS.length; i++) {
+          var zip = ArrayS[i][number1];
+          if (zip < number2 || zip > number3){
+            ArrayS.splice(i,1);
+          }
+        }
+      };
+
+      RemovebyZip(CsvRows,5,19140,19149);
+
+      //Fourth function adds the column titles to the CSV Array
+      var AddColumnHeadingArray = function (json,ArrayZ){
+        ArrayZ.unshift(Object.keys(json[0]));
+      }
+
+      AddColumnHeadingArray(healthCenters,CsvRows);
+      console.log(CsvRows);
+
+      // Add Markers Function
+      var addMarkers = function(ArrayQ,map) {
+        for (var i = 1; i <  ArrayQ.length; i++){
+          var long = ArrayQ[i][0];
+          var lat = ArrayQ[i][1];
+          var title = ArrayQ[i][3];
+          var op = {draggable: true}
+          L.marker([long, lat],op).addTo(map).bindPopup(title).openPopup();
+        }
+      };
 
 
-      var addMarkers = function(map) {};
 
       /* =====================
 
@@ -77,8 +132,8 @@
       ===================== */
 
 
-      jsonToCsv(healthCenters);
-      addMarkers(map);
+      //jsonToCsv(healthCenters);
+      addMarkers(CsvRows,map);
     </script>
     <!--Your code ends here-->
   </body>
